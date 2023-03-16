@@ -115,9 +115,9 @@ fisher.test(MiddleAoristPlutarch, alternative = "greater")
 
 #Greek and Hebrew equivalents
 
-GreekHebrewEquivalents <- matrix(c(50, 48, 3, 36, 9, 4, 0, 4, 10, 2, 0, 6, 5, 7, 0, 2), ncol = 2, byrow = TRUE)
+GreekHebrewEquivalents <- matrix(c(48, 47, 6, 34, 9, 3, 0, 6, 11, 3, 1, 6, 5, 7), ncol = 2, byrow = TRUE)
 colnames(GreekHebrewEquivalents) <- c("Middle", "Passive")
-rownames(GreekHebrewEquivalents) <- c("Qal", "Niphal", "Piel", "Pual", "Hiphil", "Hophal", "Hithpael", "QalPass")
+rownames(GreekHebrewEquivalents) <- c("Qal", "Niphal", "Piel", "Pual", "Hiphil", "Hophal", "Hithpael")
 
 GreekHebrewEquivalents
 
@@ -128,50 +128,44 @@ assocstats(GreekHebrewEquivalents)
 chisq.test(GreekHebrewEquivalents)$expected
 
 #Fisher test
-MiddleQal <- matrix(c(50, 48, 27, 61), ncol = 2, byrow = TRUE)
+MiddleQal <- matrix(c(48, 47, 32, 59), ncol = 2, byrow = TRUE)
 fisher.test(MiddleQal, alternative = "greater")
 
-PassiveQal <- matrix(c(48, 50, 61, 27), ncol = 2, byrow = TRUE)
+PassiveQal <- matrix(c(47, 48, 59, 32), ncol = 2, byrow = TRUE)
 fisher.test(PassiveQal, alternative = "less")
 
-MiddleNiphal <- matrix(c(3, 36, 74, 93), ncol = 2, byrow = TRUE)
+MiddleNiphal <- matrix(c(6, 34, 74, 72), ncol = 2, byrow = TRUE)
 fisher.test(MiddleNiphal, alternative = "less")
 
-PassiveNiphal <- matrix(c(36, 3, 93, 74), ncol = 2, byrow = TRUE)
+PassiveNiphal <- matrix(c(34, 6, 72, 74), ncol = 2, byrow = TRUE)
 fisher.test(PassiveNiphal, alternative = "greater")
 
-MiddlePiel <- matrix(c(9, 4, 68, 105), ncol = 2, byrow = TRUE)
+MiddlePiel <- matrix(c(9, 3, 71, 105), ncol = 2, byrow = TRUE)
 fisher.test(MiddlePiel, alternative = "greater")
 
 PassivePiel <- matrix(c(4, 9, 105, 68), ncol = 2, byrow = TRUE)
 fisher.test(PassivePiel, alternative = "less")
 
-MiddlePual <- matrix(c(0, 4, 77, 105), ncol = 2, byrow = TRUE)
+MiddlePual <- matrix(c(0, 6, 80, 100), ncol = 2, byrow = TRUE)
 fisher.test(MiddlePual, alternative = "less")
 
-PassivePual <- matrix(c(4, 0, 105, 77), ncol = 2, byrow = TRUE)
+PassivePual <- matrix(c(6, 0, 100, 80), ncol = 2, byrow = TRUE)
 fisher.test(PassivePual, alternative = "greater")
 
-MiddleHiphil <- matrix(c(10, 2, 67, 107), ncol = 2, byrow = TRUE)
+MiddleHiphil <- matrix(c(11, 3, 69, 103), ncol = 2, byrow = TRUE)
 fisher.test(MiddleHiphil, alternative = "greater")
 
-PassiveHiphil <- matrix(c(2, 10, 107, 67), ncol = 2, byrow = TRUE)
+PassiveHiphil <- matrix(c(3, 11, 103, 69), ncol = 2, byrow = TRUE)
 fisher.test(PassiveHiphil, alternative = "less")
 
-MiddleHophal <- matrix(c(0, 6, 77, 103), ncol = 2, byrow = TRUE)
+MiddleHophal <- matrix(c(1, 6, 79, 100), ncol = 2, byrow = TRUE)
 fisher.test(MiddleHophal, alternative = "less")
 
-PassiveHophal <- matrix(c(6, 0, 103, 77), ncol = 2, byrow = TRUE)
+PassiveHophal <- matrix(c(6, 1, 100, 79), ncol = 2, byrow = TRUE)
 fisher.test(PassiveHophal, alternative = "greater")
 
-MiddleHithpael <- matrix(c(5, 7, 72, 102), ncol = 2, byrow = TRUE)
+MiddleHithpael <- matrix(c(5, 7, 75, 99), ncol = 2, byrow = TRUE)
 fisher.test(MiddleHithpael, alternative = "greater")
 
-PassiveHithpael <- matrix(c(7, 5, 102, 72), ncol = 2, byrow = TRUE)
+PassiveHithpael <- matrix(c(7, 5, 99, 75), ncol = 2, byrow = TRUE)
 fisher.test(MiddleHithpael, alternative = "less")
-
-MiddleQalPass <- matrix(c(0, 2, 77, 107), ncol = 2, byrow = TRUE)
-fisher.test(MiddleQalPass, alternative = "less")
-
-PassiveQalPass <- matrix(c(2, 0, 107, 77), ncol = 2, byrow = TRUE)
-fisher.test(PassiveQalPass, alternative = "greater")
