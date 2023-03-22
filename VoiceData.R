@@ -1,12 +1,12 @@
 #Make matrix of voice categories
-VoiceMarkersGreek <- matrix(c(433, 405, 567, 3915, 619, 866, 199, 1839, 1135, 892, 3302, 1179, 641, 248), ncol = 7, byrow = TRUE)
+VoiceMarkersGreek <- matrix(c(433, 405, 567, 12, 79, 3915, 619, 866, 199, 1839, 1135, 892, 147, 441, 3302, 1179, 641, 248), ncol = 9, byrow = TRUE)
 
-colnames(VoiceMarkersGreek) <- c("Homer", "Herodotus", "Plato", "LXX", "Polybius", "NT", "Plutarch")
+colnames(VoiceMarkersGreek) <- c("Homer", "Herodotus", "Plato", "Callimachus", "Apollonius", "LXX", "Polybius", "NT", "Plutarch")
 rownames(VoiceMarkersGreek) <- c("Passive aorist", "Middle aorist")
 
 VoiceMarkersGreek
 
-#Perform chisquared test
+#Perform chi-squared test
 
 chisq.test(VoiceMarkersGreek)
 
@@ -20,20 +20,27 @@ VoiceMarkersGreekProportion
 
 #Make plot
 
-plot(VoiceMarkersGreekProportion[1,], type = "o", pch = 2, ylim = range(0:80), axes = FALSE, xlab = "", ylab = "Relative frequency", sub = "Figure 1: Aorist Passive and Middle in Greek")
+plot(VoiceMarkersGreekProportion[1,], type = "o", pch = 2, ylim = range(0:100), axes = FALSE, xlab = "Ancient Greek ca. 8th c. BCE - 2nd c. CE", ylab = "Relative frequency (%)", sub = "Figure 1: Aorist Passive and Middle in Greek", cex.sub = 1.2)
 
-axis(1, at = 1:7, labels = colnames(VoiceMarkersGreek))
+axis(1, at = 1:9, labels = colnames(VoiceMarkersGreek))
 axis(2)
 box()
 
-lines(VoiceMarkersGreekProportion[2,], type = "o", lty = 2, pch = 0, col = "darkgrey")
-legend("bottomright", lty = c(1,2), col = c("black", "darkgrey"), pch = c(2, 0), legend = c("Aorist Passive", "Aorist Middle"))
+lines(VoiceMarkersGreekProportion[2,], type = "o", lty = 2, pch = 0)
+legend("topright", lty = c(1,2), col = c("black", "black"), pch = c(2, 0), legend = c("Aorist Passive", "Aorist Middle"))
 
 #All works except LXX and NT
-VoiceMarkersGreekReduced <- matrix(c(433, 405, 567, 619, 199, 1839, 1135, 892, 1179, 248), ncol = 5, byrow = TRUE)
+VoiceMarkersGreekReduced <- matrix(c(433, 405, 567, 12, 79, 619, 199, 1839, 1135, 892, 147, 441, 1179, 248), ncol = 7, byrow = TRUE)
 
-colnames(VoiceMarkersGreekReduced) <- c("Homer", "Herodotus", "Plato", "Polybius", "Plutarch")
+colnames(VoiceMarkersGreekReduced) <- c("Homer", "Herodotus", "Plato", "Callimachus", "Apollonius", "Polybius", "Plutarch")
 rownames(VoiceMarkersGreekReduced) <- c("Passive aorist", "Middle aorist")
+
+VoiceMarkersGreekReduced
+
+chisq.test(VoiceMarkersGreekReduced)
+
+#Get expected values
+chisq.test(VoiceMarkersGreekReduced)$expected
 
 VoiceMarkersGreekReducedProportion <- prop.table(VoiceMarkersGreekReduced, 2)*100
 
@@ -41,18 +48,14 @@ VoiceMarkersGreekReducedProportion
 
 #Make plot
 
-plot(VoiceMarkersGreekReducedProportion[1,], type = "o", pch = 2, ylim = range(0:80), axes = FALSE, xlab = "", ylab = "Relative frequency", sub = "Figure 2: Aorist Passive and Middle in non-Biblical Greek")
+plot(VoiceMarkersGreekReducedProportion[1,], type = "o", pch = 2, ylim = range(0:100), axes = FALSE, xlab = "Ancient Greek ca. 8th c. BCE - 2nd c. CE", ylab = "Relative frequency (%)",  sub = "Figure 2: Aorist Passive and Middle in non-Biblical Greek", cex.sub = 1.2)
 
-axis(1, at = 1:5, labels = colnames(VoiceMarkersGreekReducedProportion))
+axis(1, at = 1:7, labels = colnames(VoiceMarkersGreekReducedProportion))
 axis(2)
 box()
 
-lines(VoiceMarkersGreekReducedProportion[2,], type = "o", lty = 2, pch = 0, col = "darkgrey")
-legend("bottomright", lty = c(1,2), col = c("black", "darkgrey"), pch = c(2, 0), legend = c("Aorist Passive", "Aorist Middle"))
-
-
-colnames(VoiceMarkersGreekReduced) <- c("Homer", "Herodotus", "Plato", "Polybius", "Plutarch")
-rownames(VoiceMarkersGreek) <- c("Passive aorist", "Middle aorist")
+lines(VoiceMarkersGreekReducedProportion[2,], type = "o", lty = 2, pch = 0)
+legend("topright", lty = c(1,2), col = c("black", "black"), pch = c(2, 0), legend = c("Aorist Passive", "Aorist Middle"))
 
 #Get expected values
 
@@ -66,43 +69,55 @@ assocstats(VoiceMarkersGreek)
 
 #Perform Fisher exact test:
 
-PassiveAoristHomer <- matrix(c(433, 6571, 1839, 7397), ncol = 2, byrow = TRUE)
+PassiveAoristHomer <- matrix(c(433, 6662, 1839, 7985), ncol = 2, byrow = TRUE)
 fisher.test(PassiveAoristHomer, alternative = "less")
 
-MiddleAoristHomer <- matrix(c(1839, 7397, 433, 6571), ncol = 2, byrow = TRUE)
+MiddleAoristHomer <- matrix(c(1839, 7985, 433, 6662), ncol = 2, byrow = TRUE)
 fisher.test(MiddleAoristHomer, alternative = "greater")
 
-PassiveAoristHesiod <- matrix(c(405, 6599, 1135, 8101), ncol = 2, byrow = TRUE)
-fisher.test(PassiveAoristHesiod, alternative = "less")
+PassiveAoristHerodot <- matrix(c(405, 6690, 1135, 8689), ncol = 2, byrow = TRUE)
+fisher.test(PassiveAoristHerodot, alternative = "less")
 
-MiddleAoristHesiod <- matrix(c(1135, 8101, 405, 6599), ncol = 2, byrow = TRUE)
-fisher.test(MiddleAoristHomer, alternative = "greater")
+MiddleAoristHerodot <- matrix(c(1135, 8689, 405, 6690), ncol = 2, byrow = TRUE)
+fisher.test(MiddleAoristHerodot, alternative = "greater")
 
-PassiveAoristPlato <- matrix(c(567, 6437, 892, 8344), ncol = 2, byrow = TRUE)
+PassiveAoristPlato <- matrix(c(567, 6528, 892, 8932), ncol = 2, byrow = TRUE)
 fisher.test(PassiveAoristPlato, alternative = "less")
 
-MiddleAoristPlato <- matrix(c(892, 8344, 567, 6437), ncol = 2, byrow = TRUE)
+MiddleAoristPlato <- matrix(c(892, 8932, 567, 6528), ncol = 2, byrow = TRUE)
 fisher.test(MiddleAoristPlato, alternative = "greater")
 
-PassiveAoristLXX <- matrix(c(3915, 3089, 3302, 5934), ncol = 2, byrow = TRUE)
+PassiveAoristCallimachos <- matrix(c(12, 7083, 147, 9677), ncol = 2, byrow = TRUE)
+fisher.test(PassiveAoristCallimachos, alternative = "less")
+
+MiddleAoristCallimachos <- matrix(c(147, 9677, 12, 7083), ncol = 2, byrow = TRUE)
+fisher.test(MiddleAoristCallimachos, alternative = "greater")
+
+PassiveAoristApollonius <- matrix(c(79, 7016, 441, 9383), ncol = 2, byrow = TRUE)
+fisher.test(PassiveAoristApollonius, alternative = "less")
+
+MiddleAoristApollonius <- matrix(c(441, 9383, 79, 7016), ncol = 2, byrow = TRUE)
+fisher.test(MiddleAoristApollonius, alternative = "greater")
+
+PassiveAoristLXX <- matrix(c(3915, 3180, 3302, 6522), ncol = 2, byrow = TRUE)
 fisher.test(PassiveAoristLXX, alternative = "greater")
 
-MiddleAoristLXX <- matrix(c(3302, 5934, 3915, 3089), ncol = 2, byrow = TRUE)
+MiddleAoristLXX <- matrix(c(3302, 6522, 3915, 3180), ncol = 2, byrow = TRUE)
 fisher.test(MiddleAoristLXX, alternative = "less")
 
-PassiveAoristPolybius <- matrix(c(619, 6385, 1179, 8057), ncol = 2, byrow = TRUE)
+PassiveAoristPolybius <- matrix(c(619, 6476, 1179, 8645), ncol = 2, byrow = TRUE)
 fisher.test(PassiveAoristPolybius, alternative = "less")
 
-MiddleAoristPolybius <- matrix(c(1179, 8057, 619, 6385), ncol = 2, byrow = TRUE)
+MiddleAoristPolybius <- matrix(c(1179, 8645, 619, 6476), ncol = 2, byrow = TRUE)
 fisher.test(MiddleAoristPolybius, alternative = "greater")
 
-PassiveAoristNT <- matrix(c(866, 6138, 641, 8595), ncol = 2, byrow = TRUE)
+PassiveAoristNT <- matrix(c(866, 6229, 641, 9183), ncol = 2, byrow = TRUE)
 fisher.test(PassiveAoristNT, alternative = "greater")
 
-MiddleAoristNT <- matrix(c(641, 8595, 866, 6138), ncol = 2, byrow = TRUE)
+MiddleAoristNT <- matrix(c(641, 9183, 866, 6229), ncol = 2, byrow = TRUE)
 fisher.test(MiddleAoristNT, alternative = "less")
 
-PassiveAoristPlutarch <- matrix(c(199, 6805, 248, 9188), ncol = 2, byrow = TRUE)
+PassiveAoristPlutarch <- matrix(c(199, 6896, 248, 9576), ncol = 2, byrow = TRUE)
 fisher.test(PassiveAoristPlutharch, alternative = "less")
 
 MiddleAoristPlutarch <- matrix(c(248, 9188, 199, 6805), ncol = 2, byrow = TRUE)
